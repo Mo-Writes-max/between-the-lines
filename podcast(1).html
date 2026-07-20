@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Podcast | Between the Lines</title>
+  <meta
+    name="description"
+    content="Between the Lines is a psychology and human behavior podcast by Mo."
+  >
+
+  <link rel="stylesheet" href="styles.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --background: #0d0f0d;
+      --surface: #1a1c18;
+      --surface-soft: #151713;
+      --cream: #e7e2d6;
+      --muted: #b9b5aa;
+      --sage: #6b7a5e;
+      --sage-light: #8fa07f;
+      --border: #2c312a;
+      --white-soft: #f6f4ef;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--cream);
+      font-family: "Lora", Georgia, serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 20px 6vw;
+      background: rgba(13, 15, 13, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .site-logo {
+      color: var(--cream);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    .site-nav a {
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--sage-light);
+    }
+
+    .podcast-page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .podcast-hero {
+      position: relative;
+      padding: 110px 24px 90px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top, rgba(107, 122, 94, 0.2), transparent 42%),
+        linear-gradient(180deg, #151713 0%, var(--background) 100%);
+    }
+
+    .podcast-hero::before,
+    .podcast-hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(143, 160, 127, 0.13);
+      border-radius: 50%;
+    }
+
+    .podcast-hero::before {
+      top: -120px;
+      left: -70px;
+    }
+
+    .podcast-hero::after {
+      right: -90px;
+      bottom: -140px;
+    }
+
+    .podcast-kicker,
+    .section-kicker,
+    .episode-number {
+      margin: 0 0 16px;
+      color: var(--sage-light);
+      font-family: Arial, sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .podcast-hero h1 {
+      max-width: 900px;
+      margin: 0 auto;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      line-height: 0.98;
+    }
+
+    .podcast-tagline {
+      max-width: 680px;
+      margin: 28px auto 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .newsletter-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .primary-button,
+    .newsletter-link {
+      color: var(--white-soft);
+      background: var(--sage);
+      border: 1px solid var(--sage);
+    }
+
+    .secondary-button {
+      color: var(--cream);
+      background: transparent;
+      border: 1px solid var(--border);
+    }
+
+    .primary-button:hover,
+    .secondary-button:hover,
+    .newsletter-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary-button:hover,
+    .newsletter-link:hover {
+      background: #7d8e6f;
+    }
+
+    .secondary-button:hover {
+      border-color: var(--sage-light);
+    }
+
+    .content-wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .featured-episode {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      align-items: stretch;
+      margin-top: 80px;
+    }
+
+    .episode-card,
+    .episode-art,
+    .about-card,
+    .newsletter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .episode-card {
+      padding: 52px;
+    }
+
+    .episode-card h2,
+    .about-card h2,
+    .newsletter-card h2,
+    .archive-section h2 {
+      margin: 0 0 20px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      line-height: 1.12;
+    }
+
+    .episode-question {
+      margin: 0 0 24px;
+      color: #c9c4b8;
+      font-size: 1.1rem;
+      font-style: italic;
+      line-height: 1.75;
+    }
+
+    .episode-description,
+    .about-card p,
+    .newsletter-card p,
+    .archive-card p {
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .episode-status {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 13px;
+      color: var(--sage-light);
+      background: rgba(107, 122, 94, 0.12);
+      border: 1px solid rgba(143, 160, 127, 0.25);
+      border-radius: 999px;
+      font-family: Arial, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .episode-art {
+      position: relative;
+      min-height: 470px;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(13, 15, 13, 0.18), rgba(13, 15, 13, 0.65)),
+        radial-gradient(circle at 30% 25%, rgba(143, 160, 127, 0.28), transparent 28%),
+        linear-gradient(145deg, #2c312a, #11130f 70%);
+    }
+
+    .episode-art::before {
+      content: "BETWEEN\A THE LINES";
+      white-space: pre;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--cream);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 0.95;
+      text-align: center;
+    }
+
+    .episode-art::after {
+      content: "A PODCAST BY MO";
+      position: absolute;
+      left: 50%;
+      bottom: 46px;
+      transform: translateX(-50%);
+      color: var(--sage-light);
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      white-space: nowrap;
+    }
+
+    .spotify-note {
+      margin-top: 20px;
+      color: #8d9189;
+      font-family: Arial, sans-serif;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .about-card,
+    .newsletter-card {
+      margin-top: 34px;
+      padding: 48px;
+    }
+
+    .archive-section {
+      padding: 95px 0 34px;
+    }
+
+    .archive-intro {
+      max-width: 640px;
+      margin-bottom: 30px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .archive-card {
+      padding: 28px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .archive-card h3 {
+      margin: 8px 0 12px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.45rem;
+    }
+
+    .archive-card .coming-label {
+      color: var(--sage-light);
+      font-family: Arial, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .newsletter-card {
+      margin-bottom: 90px;
+      text-align: center;
+      background:
+        linear-gradient(rgba(26, 28, 24, 0.95), rgba(26, 28, 24, 0.95)),
+        radial-gradient(circle at top, rgba(107, 122, 94, 0.18), transparent 50%);
+    }
+
+    .newsletter-card p {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .newsletter-link {
+      margin-top: 24px;
+    }
+
+    .site-footer {
+      padding: 28px 20px;
+      color: #85877f;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-family: Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 850px) {
+      .featured-episode {
+        grid-template-columns: 1fr;
+      }
+
+      .episode-art {
+        min-height: 390px;
+      }
+
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .site-nav {
+        gap: 14px;
+      }
+
+      .podcast-hero {
+        padding: 82px 20px 68px;
+      }
+
+      .content-wrap {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .episode-card,
+      .about-card,
+      .newsletter-card {
+        padding: 32px 22px;
+      }
+
+      .episode-art {
+        min-height: 320px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .primary-button,
+      .secondary-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Between the Lines</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#stories">Stories</a>
+      <a href="podcast.html" class="active">Podcast</a>
+      <a href="index.html#newsletter">Newsletter</a>
+    </nav>
+  </header>
+
+  <main class="podcast-page">
+    <section class="podcast-hero">
+      <p class="podcast-kicker">A podcast by Mo</p>
+
+      <h1>Between the Lines</h1>
+
+      <p class="podcast-tagline">
+        Exploring psychology, human behavior, and the thoughts that shape
+        the way we live—one question at a time.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#latest-episode" class="primary-button">View First Episode</a>
+        <a href="index.html#newsletter" class="secondary-button">Join the Library</a>
+      </div>
+    </section>
+
+    <div class="content-wrap">
+      <section class="featured-episode" id="latest-episode">
+        <article class="episode-card">
+          <p class="episode-number">Episode 01</p>
+
+          <h2>Why We Procrastinate</h2>
+
+          <p class="episode-question">
+            Why do we procrastinate even when we know it will only make us
+            more stressed?
+          </p>
+
+          <p class="episode-description">
+            In the first episode of <em>Between the Lines</em>, Mo looks beyond
+            the idea that procrastination is simply laziness or poor time
+            management. The episode explores emotion regulation, fear of
+            failure, perfectionism, distraction, and why beginning is often
+            the hardest part.
+          </p>
+
+          <div class="episode-status">Coming soon on Spotify</div>
+
+          <!--
+          AFTER YOUR PODCAST IS PUBLISHED:
+
+          1. Delete the episode-status div above.
+          2. Remove the comment marks around the Spotify button below.
+          3. Replace YOUR-SPOTIFY-LINK with your real Spotify episode link.
+
+          <a
+            href="YOUR-SPOTIFY-LINK"
+            class="primary-button"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="margin-top: 24px;"
+          >
+            Listen on Spotify
+          </a>
+          -->
+
+          <p class="spotify-note">
+            Once Episode 1 is published, replace the coming-soon label with your
+            Spotify listening link.
+          </p>
+        </article>
+
+        <div class="episode-art" aria-label="Between the Lines podcast cover placeholder"></div>
+      </section>
+
+      <section class="about-card">
+        <p class="section-kicker">About the show</p>
+
+        <h2>Looking Beyond the Obvious</h2>
+
+        <p>
+          Each episode explores one question about psychology and human behavior.
+          Mo looks at what research says, connects it to real life, shares personal
+          experiences, and ends with one small challenge listeners can try.
+        </p>
+      </section>
+
+      <section class="archive-section">
+        <p class="section-kicker">Episode archive</p>
+
+        <h2>More Questions Coming Soon</h2>
+
+        <p class="archive-intro">
+          Future episodes will continue exploring the thoughts, emotions, and
+          behaviors that shape everyday life.
+        </p>
+
+        <div class="archive-grid">
+          <article class="archive-card">
+            <span class="coming-label">Future episode</span>
+            <h3>Why We Overthink</h3>
+            <p>How our minds get stuck searching for certainty.</p>
+          </article>
+
+          <article class="archive-card">
+            <span class="coming-label">Future episode</span>
+            <h3>Why We Dream</h3>
+            <p>What dreams may reveal about memory, emotion, and the mind.</p>
+          </article>
+
+          <article class="archive-card">
+            <span class="coming-label">Future episode</span>
+            <h3>Why Friendships End</h3>
+            <p>How distance, change, and unspoken feelings reshape connection.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="newsletter-card">
+        <p class="section-kicker">Join the Library</p>
+
+        <h2>Never Miss an Episode</h2>
+
+        <p>
+          Subscribe for updates whenever a new podcast episode, short story,
+          or writing update is released.
+        </p>
+
+        <a href="index.html#newsletter" class="newsletter-link">
+          Join the Library
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Mo. All rights reserved.</p>
+  </footer>
+</body>
+</html>
