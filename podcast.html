@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Podcast | Between the Lines</title>
+  <meta
+    name="description"
+    content="Between the Lines is a psychology and human behavior podcast by Mo."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --black: #080908;
+      --black-soft: #0f110f;
+      --panel: #121411;
+      --panel-2: #171a15;
+      --cream: #eee8dc;
+      --cream-dim: #c7c0b4;
+      --sage: #7f926a;
+      --sage-light: #9aac86;
+      --line: #30362d;
+      --line-light: #4b5544;
+      --spotify: #1ed760;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(127, 146, 106, 0.08), transparent 30%),
+        var(--black);
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 20px 5vw;
+      background: rgba(8, 9, 8, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav a {
+      position: relative;
+      color: var(--cream-dim);
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--sage-light);
+    }
+
+    .nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      box-shadow: 0 0 12px var(--sage-light);
+      transform: translateX(-50%);
+    }
+
+    .hero {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.2fr 0.8fr;
+      align-items: center;
+      gap: 42px;
+      padding: 80px 5vw;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(8, 9, 8, 0.97), rgba(8, 9, 8, 0.82)),
+        radial-gradient(circle at 15% 50%, rgba(127, 146, 106, 0.12), transparent 36%);
+    }
+
+    .hero-cover-wrap {
+      position: relative;
+    }
+
+    .hero-cover-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      z-index: -1;
+      border: 1px solid rgba(127, 146, 106, 0.24);
+      border-radius: 4px;
+    }
+
+    .hero-cover {
+      width: min(100%, 390px);
+      margin: 0 auto;
+      border: 1px solid var(--line-light);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--sage-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 680px;
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(4rem, 8vw, 7.8rem);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      line-height: 0.86;
+      text-transform: uppercase;
+    }
+
+    .hero-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: min(290px, 85%);
+      margin: 28px 0 24px;
+      color: var(--sage);
+    }
+
+    .hero-rule::before,
+    .hero-rule::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    .hero-rule span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    .tagline {
+      max-width: 630px;
+      margin: 0;
+      color: var(--sage-light);
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      letter-spacing: 0.22em;
+      line-height: 1.8;
+      text-transform: uppercase;
+    }
+
+    .spotify-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+      min-height: 52px;
+      padding: 13px 24px;
+      color: var(--cream);
+      background: transparent;
+      border: 1px solid var(--sage);
+      border-radius: 4px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: 0.2s ease;
+    }
+
+    .spotify-button:hover {
+      color: #071008;
+      background: var(--spotify);
+      border-color: var(--spotify);
+      transform: translateY(-2px);
+    }
+
+    .spotify-icon {
+      display: inline-grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      color: #071008;
+      background: var(--spotify);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .hero-scene {
+      min-height: 420px;
+      border-left: 1px solid rgba(127, 146, 106, 0.17);
+      background:
+        radial-gradient(circle at 60% 35%, rgba(235, 219, 183, 0.13), transparent 16%),
+        linear-gradient(180deg, transparent, rgba(8, 9, 8, 0.65));
+      position: relative;
+    }
+
+    .hero-scene::before {
+      content: "";
+      position: absolute;
+      inset: 18% 12% 12%;
+      border: 1px solid rgba(127, 146, 106, 0.16);
+      background:
+        linear-gradient(90deg, transparent 47%, rgba(127, 146, 106, 0.08) 48% 52%, transparent 53%),
+        repeating-linear-gradient(180deg, rgba(88, 72, 47, 0.16) 0 28px, transparent 28px 34px);
+      box-shadow: inset 0 -100px 100px rgba(0, 0, 0, 0.8);
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .section-title {
+      margin: 0 0 30px;
+      color: var(--sage-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .latest-section {
+      padding: 70px 0 26px;
+    }
+
+    .latest-card {
+      display: grid;
+      grid-template-columns: 260px 1fr 0.8fr;
+      gap: 34px;
+      align-items: center;
+      padding: 28px;
+      border: 1px solid var(--line-light);
+      background:
+        linear-gradient(90deg, rgba(18, 20, 17, 0.98), rgba(13, 15, 12, 0.92)),
+        var(--panel);
+    }
+
+    .latest-cover {
+      border: 1px solid var(--line);
+    }
+
+    .episode-number {
+      margin: 0 0 14px;
+      color: var(--sage-light);
+      font-size: 0.77rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .latest-copy h2,
+    .about-panel h2,
+    .newsletter-copy h2 {
+      margin: 0 0 18px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .episode-question {
+      margin: 0 0 20px;
+      color: var(--sage-light);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .latest-copy p,
+    .about-panel p,
+    .newsletter-copy p,
+    .episode-list p {
+      color: var(--cream-dim);
+      line-height: 1.8;
+    }
+
+    .episode-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .coming-soon {
+      color: var(--sage-light);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .rain-panel {
+      min-height: 350px;
+      position: relative;
+      overflow: hidden;
+      border-left: 1px solid var(--line);
+      background:
+        linear-gradient(rgba(4, 7, 5, 0.36), rgba(4, 7, 5, 0.86)),
+        repeating-linear-gradient(90deg, transparent 0 38px, rgba(170, 190, 170, 0.07) 38px 39px),
+        radial-gradient(circle at 68% 44%, rgba(133, 157, 124, 0.15), transparent 36%),
+        #111610;
+    }
+
+    .rain-panel::after {
+      content: "";
+      position: absolute;
+      right: 12%;
+      bottom: 10%;
+      width: 120px;
+      height: 150px;
+      border: 1px solid rgba(127, 146, 106, 0.22);
+      border-radius: 50% 50% 12px 12px;
+      box-shadow: -35px 25px 0 -20px rgba(127, 146, 106, 0.18);
+    }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 34px;
+      padding: 48px 0 62px;
+    }
+
+    .about-panel {
+      padding: 10px 22px 10px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .small-label {
+      margin: 0 0 14px;
+      color: var(--sage-light);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .quote {
+      margin-top: 26px;
+      padding: 24px 26px;
+      color: var(--sage-light);
+      border: 1px solid var(--line);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.45rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .quote span {
+      display: block;
+      margin-top: 12px;
+      text-align: right;
+      font-size: 1rem;
+      font-style: normal;
+      letter-spacing: 0.12em;
+    }
+
+    .episode-list {
+      border: 1px solid var(--line);
+    }
+
+    .episode-row {
+      display: grid;
+      grid-template-columns: 64px 1fr 34px;
+      gap: 18px;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .episode-row:last-child {
+      border-bottom: 0;
+    }
+
+    .episode-row .num {
+      color: var(--cream-dim);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 2.3rem;
+    }
+
+    .episode-row h3 {
+      margin: 0 0 4px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+    }
+
+    .episode-row p {
+      margin: 0;
+      font-size: 0.84rem;
+    }
+
+    .lock {
+      color: #77756e;
+      font-size: 1.1rem;
+    }
+
+    .more {
+      padding: 18px;
+      color: var(--sage-light);
+      border-top: 1px solid var(--line);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .newsletter {
+      display: grid;
+      grid-template-columns: 0.8fr 1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+      margin-bottom: 54px;
+      padding: 34px;
+      border: 1px solid var(--line-light);
+      background: var(--panel);
+    }
+
+    .book-art {
+      min-height: 190px;
+      position: relative;
+      background:
+        linear-gradient(90deg, rgba(127, 146, 106, 0.06), transparent),
+        repeating-linear-gradient(180deg, transparent 0 35px, rgba(127, 146, 106, 0.11) 35px 38px);
+    }
+
+    .book-art::before {
+      content: "mind\A emotion\A choice\A growth";
+      white-space: pre;
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      color: rgba(127, 146, 106, 0.7);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.15rem;
+      line-height: 2.05;
+    }
+
+    .newsletter-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .newsletter-form input {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 16px;
+      color: var(--cream);
+      background: #0b0d0b;
+      border: 1px solid var(--line-light);
+      outline: none;
+      font: inherit;
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--sage);
+    }
+
+    .newsletter-form button {
+      min-height: 52px;
+      color: #11140f;
+      background: var(--sage-light);
+      border: 0;
+      font-size: 0.77rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .newsletter-form small {
+      color: #8e8b82;
+      font-size: 0.72rem;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px 5vw;
+      color: #99958c;
+      border-top: 1px solid var(--line);
+      font-size: 0.72rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1000px) {
+      .hero {
+        grid-template-columns: 0.85fr 1.15fr;
+      }
+
+      .hero-scene {
+        display: none;
+      }
+
+      .latest-card {
+        grid-template-columns: 220px 1fr;
+      }
+
+      .rain-panel {
+        display: none;
+      }
+
+      .newsletter {
+        grid-template-columns: 0.7fr 1fr;
+      }
+
+      .newsletter-form {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        gap: 15px;
+      }
+
+      .nav a.active::after {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 54px;
+        text-align: center;
+      }
+
+      .hero-cover {
+        width: min(72vw, 360px);
+      }
+
+      .hero-rule {
+        margin-inline: auto;
+      }
+
+      .tagline {
+        margin-inline: auto;
+      }
+
+      .latest-card,
+      .lower-grid,
+      .newsletter {
+        grid-template-columns: 1fr;
+      }
+
+      .latest-cover {
+        width: min(70vw, 280px);
+        margin: 0 auto;
+      }
+
+      .about-panel {
+        padding-right: 0;
+        border-right: 0;
+      }
+
+      .book-art {
+        min-height: 130px;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a href="index.html" class="brand">Between the Lines</a>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#stories">Stories</a>
+      <a href="podcast.html" class="active">Podcast</a>
+      <a href="index.html#newsletter">Newsletter</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-cover-wrap">
+        <img
+          src="images/podcast-cover.jpg"
+          alt="Between the Lines podcast cover"
+          class="hero-cover"
+        >
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">A podcast by Mo</p>
+
+        <h1>Between<br>The Lines</h1>
+
+        <div class="hero-rule"><span></span></div>
+
+        <p class="tagline">
+          Exploring the psychology behind everyday life.
+        </p>
+
+        <!-- Replace # with your Spotify show link after it is published. -->
+        <a href="#" class="spotify-button" aria-label="Listen on Spotify">
+          <span class="spotify-icon">S</span>
+          Listen on Spotify
+        </a>
+      </div>
+
+      <div class="hero-scene" aria-hidden="true"></div>
+    </section>
+
+    <section class="latest-section" id="latest">
+      <div class="container">
+        <h2 class="section-title">Latest Episode</h2>
+
+        <article class="latest-card">
+          <img
+            src="images/podcast-cover.jpg"
+            alt="Between the Lines podcast artwork"
+            class="latest-cover"
+          >
+
+          <div class="latest-copy">
+            <p class="episode-number">Episode 01</p>
+
+            <h2>Why We Procrastinate</h2>
+
+            <p class="episode-question">
+              Why do we procrastinate even when we know it will only make us
+              more stressed?
+            </p>
+
+            <p>
+              In the first episode, we explore the psychology behind
+              procrastination—emotion regulation, fear of failure,
+              perfectionism, distractions, and the struggle between short-term
+              comfort and long-term success.
+            </p>
+
+            <div class="episode-actions">
+              <!-- Replace # with the Spotify episode link after publishing. -->
+              <a href="#" class="spotify-button">
+                <span class="spotify-icon">S</span>
+                Listen on Spotify
+              </a>
+
+              <span class="coming-soon">Coming soon</span>
+            </div>
+          </div>
+
+          <div class="rain-panel" aria-hidden="true"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container lower-grid">
+      <article class="about-panel">
+        <p class="small-label">About the Podcast</p>
+
+        <h2>Looking Beyond<br>the Obvious</h2>
+
+        <p>
+          Between the Lines is a psychology podcast that looks beyond the
+          obvious.
+        </p>
+
+        <p>
+          Each episode explores one question about human behavior. We look at
+          what research says, connect it to real experiences, share personal
+          perspectives, and end with a small challenge you can try in your own
+          life.
+        </p>
+
+        <div class="quote">
+          We don't just live life on the surface. There's always more going on
+          between the lines.
+          <span>— Mo</span>
+        </div>
+      </article>
+
+      <section>
+        <p class="small-label">Upcoming Episodes</p>
+
+        <div class="episode-list">
+          <article class="episode-row">
+            <span class="num">02</span>
+            <div>
+              <h3>Why We Overthink</h3>
+              <p>The cycle, the fear, and how to break it.</p>
+            </div>
+            <span class="lock" aria-label="Coming soon">▣</span>
+          </article>
+
+          <article class="episode-row">
+            <span class="num">03</span>
+            <div>
+              <h3>The Psychology of Dreams</h3>
+              <p>What your mind may be trying to tell you.</p>
+            </div>
+            <span class="lock" aria-label="Coming soon">▣</span>
+          </article>
+
+          <article class="episode-row">
+            <span class="num">04</span>
+            <div>
+              <h3>Why Friendships End</h3>
+              <p>The psychology behind growing apart.</p>
+            </div>
+            <span class="lock" aria-label="Coming soon">▣</span>
+          </article>
+
+          <article class="episode-row">
+            <span class="num">05</span>
+            <div>
+              <h3>The Psychology of First Impressions</h3>
+              <p>Why we judge so fast and how to change it.</p>
+            </div>
+            <span class="lock" aria-label="Coming soon">▣</span>
+          </article>
+
+          <article class="episode-row">
+            <span class="num">06</span>
+            <div>
+              <h3>The Truth About Motivation</h3>
+              <p>Discipline, habits, and showing up anyway.</p>
+            </div>
+            <span class="lock" aria-label="Coming soon">▣</span>
+          </article>
+
+          <div class="more">More episodes coming soon.</div>
+        </div>
+      </section>
+    </section>
+
+    <section class="container newsletter">
+      <div class="book-art" aria-hidden="true"></div>
+
+      <div class="newsletter-copy">
+        <p class="small-label">Join the Library</p>
+        <h2>Stay in the Loop</h2>
+        <p>
+          Be the first to know when new podcast episodes and stories are
+          released.
+        </p>
+      </div>
+
+      <!--
+        This form is visual only until you connect it to Beehiiv.
+        Your current homepage newsletter is still linked in the navigation.
+      -->
+      <form class="newsletter-form" action="index.html#newsletter">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email address"
+          aria-label="Email address"
+        >
+        <button type="submit">Join the Library</button>
+        <small>No spam. Unsubscribe anytime.</small>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© 2026 Between the Lines by Mo. All rights reserved.</span>
+    <span>Stories · Psychology · Human Behavior</span>
+  </footer>
+</body>
+</html>
